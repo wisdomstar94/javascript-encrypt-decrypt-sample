@@ -1,0 +1,35 @@
+{
+  "name": "javascript-encrypt-decrypt-sample",
+  "version": "1.0.0",
+  "description": "javascript 기반 다양한 알고리즘의 암호화, 복호화 샘플 프로젝트 입니다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "test:src:aes-256-cbc": "node ./src/aes-256-cbc/aes-256-cbc.esbuild.js && node ./src/aes-256-cbc/aes-256-cbc.js"
+  },
+  "keywords": [
+    "javascript",
+    "encrypt",
+    "decrypt",
+    "AES",
+    "AES256",
+    "AES256CBC",
+    "AES-256-CBC",
+    "aes",
+    "aes256",
+    "aes256CBC",
+    "aes-256-CBC",
+    "crypto-js"
+  ],
+  "author": "wisdomstar94@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "esbuild": "^0.14.46"
+  }
+}
