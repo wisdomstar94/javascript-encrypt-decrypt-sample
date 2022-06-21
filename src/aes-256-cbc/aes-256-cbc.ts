@@ -18,7 +18,7 @@ class AES256 {
     const keyWA = enc.Utf8.parse(key);
     const ivWA = enc.Utf8.parse(key.substring(0, 16));
 
-    const cipher = AES.decrypt(enc.Base64url.parse(encData).toString(enc.Base64), keyWA, { iv: ivWA }); // 해쉬된 값이 url encode 일 수도 있으므로 base64url 로 파싱하고 다시 base64 로 인코딩
+    const cipher = AES.decrypt(enc.Base64url.parse(encData.replace(/=/gi, '')).toString(enc.Base64), keyWA, { iv: ivWA }); // 해쉬된 값이 url encode 일 수도 있으므로 base64url 로 파싱하고 다시 base64 로 인코딩
     return cipher.toString(enc.Utf8);
   }
 }
