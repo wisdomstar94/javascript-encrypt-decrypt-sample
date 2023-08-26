@@ -1,31 +1,15 @@
 import { JSEncrypt } from 'jsencrypt';
 
-class RSA {
-  constructor() {
+export function encrypt(data: string, key: string): string {
+  const sign = new JSEncrypt();
+  sign.setKey(key);
+  return sign.encrypt(data).toString();
+}
 
-  }
-
-  encrypt(data: string, key: string, keyType: 'public' | 'private'): string {
-    let sign = new JSEncrypt();
-    if (keyType === 'private') {
-      sign.setPrivateKey(key);
-    } else {
-      sign.setPublicKey(key);
-    }
-
-    return sign.encrypt(data).toString();
-  }
-
-  decrypt(encData: string, key: string, keyType: 'public' | 'private'): string {
-    let sign = new JSEncrypt();
-    if (keyType === 'private') {
-      sign.setPrivateKey(key);
-    } else {
-      sign.setPublicKey(key);
-    }
-
-    return sign.decrypt(encData).toString();
-  }
+export function decrypt(encData: string, key: string): string {
+  const sign = new JSEncrypt();
+  sign.setKey(key);
+  return sign.decrypt(encData).toString();
 }
 
 const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtzBRzBSPM0XWVTYQ/Tp3UiJIJOleteC6pslVmuBfHP4iPu5YsBkW8fUdtQDWc5XzHceYPZbZXGClmHlHc5KbyxRs61IX8+/gdNqP/yYiW2nfFw4Z13trjwakwF2b3h4Dcyduz2fm6h31Ds+Aa3p2GqsukBwcoJKq4u1+5rLwNK+uRygUZ/INEMRQyC8W9YW3RdgnID0ZEgfqTbCuIyfUFCTBJ4NZo3umsftIGhOy/JEchNOXummj6Q2bM1+8C4pODMTbvUC3dGw7ZtuN8K1Id7zm5gpShXmHuf6GQWPShkawNIq4D+FAUZK3sGACZW0wYATp5mPs6v0rNt6tQzu+TwIDAQAB`;
@@ -34,24 +18,21 @@ const privateKey = `MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC3MFHMFI8z
 function publicEncryptAndPrivateDecrypt() {
   console.log('publicEncryptAndPrivateDecrypt()');
   
-  const rsa = new RSA();
   const data = 'my data!';
 
-  const encData = rsa.encrypt(data, publicKey, 'public');
+  const encData = encrypt(data, publicKey);
   console.log('encData', encData);
-  const decData = rsa.decrypt(encData, privateKey, 'private');
+  const decData = decrypt(encData, privateKey);
   console.log('decData', decData);
 }
 
 function privateEncryptAndPublicDecrypt() {
   console.log('privateEncryptAndPublicDecrypt()');
 
-  const rsa = new RSA();
-
   // https://www.devglan.com/online-tools/rsa-encryption-decryption
   const encData = `cqBQRmeHbWWpGzbUb9MTmWPcEUAzE2054Sf3sD4936jz83s0beeR5m3mMEJ6BHBkWnoREBC6RwuUmdeDU3S5UO1oLkUFL9I/nXujg3EBa5MAugR49JaE9Vrse7ZN4hnc7yR1x6vMh1a4yfdfBAX7Zro7lpQi/WiPKfa7EcPgo593XlvnqhIMEAJe5MWLMz5E/TezviuuLH05+lVp/HyPBkbYMPEEwp0kXDkpPPDSef4WahVAgEWcZg4in2Vu5QRNEW5geK9aGzEzWpfDgnVaz50Cu8OvN5iHVAX0QH7+E0topPlBd6qqe8cGXewCkDxB+I/7WMsO0zzBTuDiHCngzA==`;
   console.log('encData', encData);
-  const decData = rsa.decrypt(encData, publicKey, 'public');
+  const decData = decrypt(encData, publicKey); // public key 로 decrypt 하는 것은 지원되지 않음!
   console.log('decData', decData);
 }
 
